@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col h-screen">
     <TheHeader />
-    <Nuxt class="flex-grow" />
+    <div class="flex-grow flex flex-row">
+      <TheSidebar />
+      <Nuxt />
+    </div>
     <TheFooter />
   </div>
 </template>
