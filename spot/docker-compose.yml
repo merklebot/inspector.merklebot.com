@@ -1,0 +1,15 @@
+services:
+  spot_back:
+    build: .
+    network_mode:
+      host
+
+    restart: unless-stopped
+
+#    env_file:
+#      - .env
+#    environment:
+#      - INTERACTION_MODE=drawing
+    privileged: true
+    volumes:
+      - ./map:/map
