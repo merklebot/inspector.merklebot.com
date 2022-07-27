@@ -1,1 +1,1 @@
-# ozmining.demo.merklebot.com
+# inspector.merklebot.com
