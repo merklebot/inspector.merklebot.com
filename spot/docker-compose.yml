@@ -1,6 +1,8 @@
 services:
   inspector:
     build: .
+    env_file:
+      - .env
     volumes:
       - ./map:/map
       - .:/merklebot_inspector # run edited code without rebuilding the image

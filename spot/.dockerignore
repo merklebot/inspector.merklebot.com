@@ -1,3 +1,5 @@
+.env
+
 # GoogleCloudPlatform / getting-started-python / optional-kubernetes-engine/.dockerignore
 # https://github.com/GoogleCloudPlatform/getting-started-python/blob/main/optional-kubernetes-engine/.dockerignore
 

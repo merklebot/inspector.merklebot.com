@@ -3,3 +3,4 @@ bosdyn-mission
 bosdyn-choreography-client
 numpy
 loguru==0.6
+pydantic==1.9
