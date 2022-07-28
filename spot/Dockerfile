@@ -32,6 +32,6 @@ RUN python3.8 -m pip install -r requirements.txt
 COPY . ./
 
 # Install as editable module
-RUN python -m pip install -e .
+RUN python3.8 -m pip install -e .
 
-CMD ["python", "-m", "merklebot_inspector"]
+CMD ["python3.8", "-m", "merklebot_inspector"]
