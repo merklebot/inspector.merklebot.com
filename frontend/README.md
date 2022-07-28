@@ -1,4 +1,4 @@
-# ozmining.demo.merklebot.com
+# inspector.merklebot.com
 
 ## Build Setup
 
