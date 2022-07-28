@@ -12,7 +12,6 @@ from google.protobuf.json_format import MessageToDict
 import time
 import base64
 
-from spot.merklebot_inspector.settings import Settings
 
 
 class SpotState(TypedDict):
@@ -90,7 +89,7 @@ class SpotDataCollector:
         return MessageToDict(self.get_state().battery_states[0])
 
 
-def run_spot_data_collector(settings: Settings,
+def run_spot_data_collector(settings,
                             spot_state: SpotState):
     spot_data_collector = SpotDataCollector(settings.SPOT_IP, settings.BOSDYN_CLIENT_USERNAME,
                                             settings.BOSDYN_CLIENT_PASSWORD)
