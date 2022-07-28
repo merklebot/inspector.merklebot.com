@@ -36,6 +36,8 @@ export default {
     '@nuxtjs/tailwindcss',
     // https://color-mode.nuxtjs.org/
     '@nuxtjs/color-mode',
+    '@nuxtjs/composition-api/module',
+    '@pinia/nuxt',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
