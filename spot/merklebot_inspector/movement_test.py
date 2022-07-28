@@ -1,7 +1,7 @@
 import time
 from bosdyn.client.math_helpers import SE2Pose
 # from bosdyn.api import SE2Pose
-from spot_movement_controller import SpotMovementController
+from merklebot_inspector.spot_movement_controller import SpotMovementController
 
 username = ""
 password = ""
