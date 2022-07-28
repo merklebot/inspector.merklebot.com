@@ -3,38 +3,14 @@
     <div class="w-1/2 p-8">
       <h2 class="text-5xl font-bold">Observation</h2>
 
+      <SpotDataLabels class="mt-8"/>
       <div class="mt-8">
-        <div class="stats shadow m-2">
-          <div class="stat">
-            <div class="stat-title">Spot status</div>
-            <div class="stat-value text-green-500">Active</div>
-          </div>
-        </div>
-        <div class="stats shadow m-2">
-
-          <div class="stat">
-            <div class="stat-title">Battery</div>
-            <div class="stat-value">42%</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-title">Location</div>
-            <div class="stat-value">Waypoint 1</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-title">Gauges captured</div>
-            <div class="stat-value">7</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-8">
-        <div class="grid grid-cols-2 grid-rows-2 gap-4">
-          <CameraStream title="front" url="https://api.merklebot.com/videoserver/video"/>
-          <CameraStream title="back" url="https://api.merklebot.com/videoserver/video"/>
-          <CameraStream title="left" url="https://api.merklebot.com/videoserver/video"/>
-          <CameraStream title="right" url="https://api.merklebot.com/videoserver/video"/>
+        <div class="grid grid-cols-2 gap-4">
+          <CameraStream title="front left" camera-name="frontleft_fisheye_image"/>
+          <CameraStream title="front right" camera-name="frontright_fisheye_image"/>
+          <CameraStream title="left" camera-name="left_fisheye_image"/>
+          <CameraStream title="right" camera-name="right_fisheye_image"/>
+          <CameraStream title="back" camera-name="back_fisheye_image"/>
         </div>
       </div>
 
