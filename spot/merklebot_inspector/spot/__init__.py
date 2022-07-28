@@ -29,9 +29,9 @@ ROTATION_ANGLE = {
     'right_fisheye_image': 180
 }
 
-# IMAGE_SOURCES = ["frontleft_fisheye_image", "frontright_fisheye_image", "right_fisheye_image", "back_fisheye_image",
-#                  "left_fisheye_image"]
-IMAGE_SOURCES = ["left_fisheye_image", "right_fisheye_image"]
+IMAGE_SOURCES = ["frontleft_fisheye_image", "frontright_fisheye_image", "right_fisheye_image", "back_fisheye_image",
+                 "left_fisheye_image"]
+# IMAGE_SOURCES = ["left_fisheye_image", "right_fisheye_image"]
 
 
 class SpotDataCollector:
