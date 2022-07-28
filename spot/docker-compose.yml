@@ -3,6 +3,8 @@ services:
     build: .
     env_file:
       - .env
+    ports:
+      - 127.0.0.1:8080:8080
     volumes:
       - ./map:/map
       - .:/merklebot_inspector # run edited code without rebuilding the image
