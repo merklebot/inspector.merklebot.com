@@ -6,3 +6,5 @@ loguru==0.6
 pydantic==1.9
 fastapi==0.79
 uvicorn[standard]==0.18
+opencv-python
+scipy
