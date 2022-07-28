@@ -1,16 +1,6 @@
 services:
-  spot_back:
+  inspector:
     build: .
-    network_mode:
-      host
-
-    restart: unless-stopped
-
-#    env_file:
-#      - .env
-#    environment:
-#      - INTERACTION_MODE=drawing
-    privileged: true
     volumes:
       - ./map:/map
       - .:/merklebot_inspector # run edited code without rebuilding the image
