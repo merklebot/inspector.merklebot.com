@@ -11,8 +11,9 @@ from scipy import ndimage
 from google.protobuf.json_format import MessageToDict
 import time
 import base64
+from ..logger import log
 
-
+import sys
 
 class SpotState(TypedDict):
     battery: Optional[float]
@@ -71,14 +72,15 @@ class SpotDataCollector:
         return image_responses
 
     def get_images_base64(self):
-        camera_images = self.get_images()
-        for image in camera_images:
+        camera_images = {}
+        images = self.get_images()
+        for image in images:
             dtype = np.uint8
             extension = ".jpg"
             img = np.frombuffer(image.shot.image.data, dtype=dtype)
             img = cv2.imdecode(img, -1)
             img = ndimage.rotate(img, ROTATION_ANGLE[image.source.name])
-            retval, buffer = cv2.imencode('.jpg', image)
+            retval, buffer = cv2.imencode('.jpg', img)
             camera_images[image.source.name] = base64.b64encode(buffer)
         return camera_images
 
@@ -91,8 +93,10 @@ class SpotDataCollector:
 
 def run_spot_data_collector(settings,
                             spot_state: SpotState):
+    log.info("starting data collector...")
     spot_data_collector = SpotDataCollector(settings.SPOT_IP, settings.BOSDYN_CLIENT_USERNAME,
                                             settings.BOSDYN_CLIENT_PASSWORD)
+    log.info("data collector started")
     while True:
         camera_images = spot_data_collector.get_images_base64()
         battery = spot_data_collector.get_battery_state()['chargePercentage']
@@ -100,3 +104,4 @@ def run_spot_data_collector(settings,
         spot_state['battery'] = battery
 
         time.sleep(1 / 10)
+
