@@ -81,7 +81,7 @@ class SpotDataCollector:
             img = cv2.imdecode(img, -1)
             img = ndimage.rotate(img, ROTATION_ANGLE[image.source.name])
             retval, buffer = cv2.imencode('.jpg', img)
-            camera_images[image.source.name] = base64.b64encode(buffer)
+            camera_images[image.source.name] = str(base64.b64encode(buffer))
         return camera_images
 
     def get_state(self):
@@ -104,4 +104,3 @@ def run_spot_data_collector(settings,
         spot_state['battery'] = battery
 
         time.sleep(1 / 10)
-
