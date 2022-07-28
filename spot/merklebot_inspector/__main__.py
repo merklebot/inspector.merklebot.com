@@ -2,7 +2,7 @@ import multiprocessing
 
 from .settings import Settings
 from .spot import SpotState
-from .logging import log
+from .logger import log
 from .web import run_server
 
 
