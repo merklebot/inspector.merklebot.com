@@ -31,7 +31,7 @@ class SpotMovementController:
         #ROBOT
         self._robot = sdk.create_robot(robot_ip)
         self._robot.authenticate(username, password)
-        self._robot.time_sync.wait_for_sync()
+        self._robot.time_sync.wait_for_sync(timeout_sec=15.0)
 
         #LEASE
         self._lease_client = None
@@ -40,9 +40,9 @@ class SpotMovementController:
         self._lease_keepalive = None
 
         #ESTOP
-        # self._estop_client = self._robot.ensure_client(EstopClient.default_service_name)
-        # self._estop_endpoint = EstopEndpoint(self._estop_client, 'GNClient', 9.0)
-        # self._estop_keepalive = None
+        self._estop_client = self._robot.ensure_client(EstopClient.default_service_name)
+        self._estop_endpoint = EstopEndpoint(self._estop_client, 'GNClient', 9.0)
+        self._estop_keepalive = None
 
         #CLIENTS
         self._robot_command_client = self._robot.ensure_client(RobotCommandClient.default_service_name)
@@ -61,8 +61,8 @@ class SpotMovementController:
 
     def __enter__(self):
         self.lease_control()
-        # self.release_estop()
-        self._upload_graph_and_snapshots()
+        self.release_estop()
+        # self._upload_graph_and_snapshots()
         self.power_on_stand_up()
         return self
 
@@ -71,7 +71,7 @@ class SpotMovementController:
             self._robot.logger.error("Spot powered off with " + exc_val + " exception")
         self.power_off_sit_down()
         self.return_lease()
-        # self.set_estop()
+        self.set_estop()
 
         return True if exc_type else False
 
