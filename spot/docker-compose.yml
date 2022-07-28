@@ -13,3 +13,4 @@ services:
     privileged: true
     volumes:
       - ./map:/map
+      - .:/merklebot_inspector # run edited code without rebuilding the image

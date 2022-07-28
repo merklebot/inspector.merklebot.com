@@ -1,5 +1,9 @@
 FROM ros:melodic-ros-base-bionic
 
+ENV LOGURU_LEVEL INFO
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
     apt-get install -yqq software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
@@ -21,13 +25,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
     rm -rf /var/lib/apt/lists/* && \
     python3.8 -m ensurepip --upgrade
 
+WORKDIR /merklebot_inspector
 
-WORKDIR /code
-
-COPY requirements.txt requirements.txt
-RUN python3.8 -m pip install --upgrade pip
+COPY requirements.txt ./
 RUN python3.8 -m pip install -r requirements.txt
-COPY . .
+COPY . ./
 
-CMD ["python3.8", "main.py"]
+# Install as editable module
+RUN python -m pip install -e .
 
+CMD ["python", "-m", "merklebot_inspector"]
