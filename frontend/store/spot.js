@@ -12,6 +12,12 @@ export const useSpot = defineStore('spotData', {
   },
   actions: {
     setSpotAnswer(data) {
+      if (!data) {
+        this.battery = null
+        this.cameraImages = {}
+        this.status = "unknown"
+        return
+      }
       this.battery = data.battery
       this.cameraImages = data.camera_images
     }
