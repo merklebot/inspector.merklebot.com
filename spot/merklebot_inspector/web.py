@@ -27,7 +27,7 @@ def create_app(settings: Settings, spot_state: SpotState) -> FastAPI:
             await asyncio.sleep(1/24)
             try:
                 await ws.send_json(spot_state.copy())
-            except (WebSocketDisconnect, websockets.exceptions.ConnectionClosedError):
+            except (WebSocketDisconnect, websockets.exceptions.ConnectionClosed):
                 return
 
     return app
