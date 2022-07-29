@@ -5,7 +5,7 @@ export const useSpot = defineStore('spotData', {
     return {
       status: "unknown",
       cameraImages: {},
-      battery: 0,
+      battery: null,
       location: "start",
       gauges: 0
     }
@@ -20,6 +20,9 @@ export const useSpot = defineStore('spotData', {
       }
       this.battery = data.battery
       this.cameraImages = data.camera_images
+    },
+    setStatus(status) {
+      this.status = status
     }
   }
 })
