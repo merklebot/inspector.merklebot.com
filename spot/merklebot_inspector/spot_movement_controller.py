@@ -17,6 +17,7 @@ from bosdyn.client.math_helpers import Quat, SE3Pose, SE2Pose
 from bosdyn.client.robot_command import RobotCommandClient, RobotCommandBuilder, blocking_stand
 from bosdyn.client.robot_state import RobotStateClient
 from bosdyn.client.estop import EstopClient, EstopEndpoint, EstopKeepAlive
+from bosdyn.client.docking import blocking_dock_robot, blocking_undock
 
 import bosdyn.client.util
 
@@ -161,6 +162,12 @@ class SpotMovementController:
 
         # Update and print waypoints and edges
         self._current_annotation_name_to_wp_id, self._current_edges = update_waypoints_and_edges(graph, localization_id)
+
+    def start_docking(self, dock_id):
+        blocking_dock_robot(self._robot, dock_id)
+
+    def start_undocking(self):
+        blocking_undock(self._robot)
 
     def _upload_graph_and_snapshots(self):
         """Upload the graph and snapshots to the robot."""
