@@ -1,6 +1,11 @@
 <template>
   <div class="bg-base-100 shadow-xl">
-    <figure><img :src="'data:image/jpeg;base64, '+ spot.cameraImages[camera]" alt="Video stream"/></figure>
+    <figure v-if="spot.cameraImages[camera]">
+      <img :src="'data:image/jpeg;base64, '+ spot.cameraImages[camera]" alt="Video stream"/>
+    </figure>
+    <div v-else class="mx-16 my-8">
+      Waiting for image
+    </div>
     <div class="p-2">
       <p class="font-mono">{{ cameraTitle }}</p>
     </div>
