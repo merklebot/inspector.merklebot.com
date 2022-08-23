@@ -131,7 +131,10 @@ class SpotDataCollector:
                 data = glReadPixels(0, 0, 1080, 720, GL_RGBA, GL_UNSIGNED_BYTE)
                 image = Image.frombytes("RGBA", (1080, 720), data)
                 image = ImageOps.flip(image)
-                camera_images["front_image"] = base64.b64encode(image.tobytes()).decode('utf-8')
+                image = np.array(image.convert('RGB'))
+                image = image[:, :, ::-1].copy()
+                retval, buffer = cv2.imencode('.jpg', image)
+                camera_images["front_image"] = base64.b64encode(buffer).decode('utf-8')
 
         except:
             traceback.print_exc()
