@@ -20,6 +20,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
         python3.8-dev \
         ffmpeg  \
         libsm6 \
+        xvfb \
         libxext6 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
