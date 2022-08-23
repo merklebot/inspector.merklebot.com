@@ -13,6 +13,19 @@ import time
 import base64
 from ..logger import log
 
+import OpenGL
+import pygame
+from OpenGL.GL import *
+from OpenGL.GL import GL_VERTEX_SHADER, shaders
+from OpenGL.GLU import *
+from PIL import Image, ImageOps
+
+import bosdyn.api
+from bosdyn.api import image_pb2
+from bosdyn.client.image import ImageClient, build_image_request
+from pyvirtualdisplay import Display
+from .sitch_front_utils import *
+
 import sys
 
 class SpotState(TypedDict):
@@ -36,6 +49,9 @@ IMAGE_SOURCES = ["frontleft_fisheye_image", "frontright_fisheye_image", "right_f
 
 class SpotDataCollector:
     def __init__(self, robot_ip, username, password):
+
+        virtual_display = Display(visible=0, size=(1024, 768))
+        virtual_display.start()
         sdk = bosdyn.client.create_standard_sdk('image_capture')
         robot = sdk.create_robot(robot_ip)
         robot.authenticate(username, password)
@@ -50,6 +66,19 @@ class SpotDataCollector:
             build_image_request(source, pixel_format=pixel_format)
             for source in IMAGE_SOURCES
         ]
+
+        pygame.init()
+
+        display = (1080, 720)
+        pygame.display.set_mode(display, pygame.DOUBLEBUF | pygame.OPENGL)
+
+        with open('shader_vert.glsl', 'r') as file:
+            vert_shader = file.read()
+        with open('shader_frag.glsl', 'r') as file:
+            frag_shader = file.read()
+
+        self.shader_program = CompiledShader(vert_shader, frag_shader)
+
 
     def get_image_sources(self):
         image_sources = self.image_client.list_image_sources()
@@ -74,6 +103,10 @@ class SpotDataCollector:
     def get_images_base64(self):
         camera_images = {}
         images = self.get_images()
+
+        front_right = None
+        front_left = None
+
         for image in images:
             dtype = np.uint8
             extension = ".jpg"
@@ -82,6 +115,25 @@ class SpotDataCollector:
             img = ndimage.rotate(img, ROTATION_ANGLE[image.source.name])
             retval, buffer = cv2.imencode('.jpg', img)
             camera_images[image.source.name] = base64.b64encode(buffer).decode('utf-8')
+
+            if image.source.name == "frontright_fisheye_image":
+                front_right = ImagePreppedForOpenGL(image)
+            elif image.source.name == "frontleft_fisheye_image":
+                front_left = ImagePreppedForOpenGL(image)
+        try:
+            if front_right is not None and front_left is not None:
+                self.shader_program.update_images(front_right, front_left)
+                stitching_camera = StitchingCamera(front_right, front_left)
+                glClearColor(0, 0, 255, 0)
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+                draw_routine((1080, 720), self.shader_program, stitching_camera)
+                data = glReadPixels(0, 0, 1080, 720, GL_RGBA, GL_UNSIGNED_BYTE)
+                image = Image.frombytes("RGBA", (1080, 720), data)
+                image = ImageOps.flip(image)
+                camera_images["front_image"] = base64.b64encode(image.tobytes()).decode('utf-8')
+
+        except:
+            pass
         return camera_images
 
     def get_state(self):

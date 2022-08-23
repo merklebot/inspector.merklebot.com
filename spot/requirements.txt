@@ -8,3 +8,7 @@ fastapi==0.79
 uvicorn[standard]==0.18
 opencv-python
 scipy
+Pillow
+pygame
+pyopengl==3.1.5
+pyvirtualdisplay
