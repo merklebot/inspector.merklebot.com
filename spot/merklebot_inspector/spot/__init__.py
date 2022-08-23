@@ -43,9 +43,9 @@ ROTATION_ANGLE = {
     'right_fisheye_image': 180
 }
 
-IMAGE_SOURCES = ["frontleft_fisheye_image", "frontright_fisheye_image", "right_fisheye_image", "back_fisheye_image",
-                 "left_fisheye_image"]
-# IMAGE_SOURCES = ["left_fisheye_image", "right_fisheye_image"]
+# IMAGE_SOURCES = ["frontleft_fisheye_image", "frontright_fisheye_image", "right_fisheye_image", "back_fisheye_image",
+#                  "left_fisheye_image"]
+IMAGE_SOURCES = ["frontleft_fisheye_image", "frontright_fisheye_image"]
 
 
 class SpotDataCollector:
@@ -115,7 +115,7 @@ class SpotDataCollector:
             img = cv2.imdecode(img, -1)
             img = ndimage.rotate(img, ROTATION_ANGLE[image.source.name])
             retval, buffer = cv2.imencode('.jpg', img)
-            camera_images[image.source.name] = base64.b64encode(buffer).decode('utf-8')
+            # camera_images[image.source.name] = base64.b64encode(buffer).decode('utf-8')
 
             if image.source.name == "frontright_fisheye_image":
                 front_right = ImagePreppedForOpenGL(image)
