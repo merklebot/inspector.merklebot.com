@@ -1,3 +1,4 @@
+import traceback
 from typing import TypedDict, Optional, Dict
 
 import bosdyn.client
@@ -133,7 +134,7 @@ class SpotDataCollector:
                 camera_images["front_image"] = base64.b64encode(image.tobytes()).decode('utf-8')
 
         except:
-            pass
+            traceback.print_exc()
         return camera_images
 
     def get_state(self):
