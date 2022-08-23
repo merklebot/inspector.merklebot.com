@@ -21,6 +21,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
         ffmpeg  \
         libsm6 \
         xvfb \
+        freeglut3 \
+        freeglut3-dev \
         libxext6 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
