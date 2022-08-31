@@ -20,6 +20,10 @@ def create_app(settings: Settings, spot_state: SpotState) -> FastAPI:
         allow_headers=["*"],
     )
 
+    @app.get("/state")
+    async def get_state():
+        return spot_state.copy()
+
     @app.websocket("/spot/state/ws")
     async def listen_spot_state(ws: WebSocket):
         await ws.accept()
