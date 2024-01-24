@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
         libssl-dev \
         pkg-config \
         python3.8 \
-        python3.8 \
+        python3.8-pip \
         ffmpeg  \
         libsm6 \
         xvfb \
