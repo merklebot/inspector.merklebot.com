@@ -35,6 +35,7 @@ RUN add-apt-repository universe
 RUN apt-get update
 RUN apt-get -y install python3-pip
 COPY requirements.txt ./
+RUN python3.8 -m pip install --upgrade pip
 RUN python3.8 -m pip install -r requirements.txt
 COPY . ./
 
