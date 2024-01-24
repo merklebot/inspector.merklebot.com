@@ -17,7 +17,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
         libssl-dev \
         pkg-config \
         python3.8 \
-        python3.8-pip \
         ffmpeg  \
         libsm6 \
         xvfb \
@@ -31,6 +30,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
 
 WORKDIR /merklebot_inspector
 
+
+RUN add-apt-repository universe
+RUN apt-get update
+RUN apt-get -y install python3-pip
 COPY requirements.txt ./
 RUN python3.8 -m pip install -r requirements.txt
 COPY . ./
