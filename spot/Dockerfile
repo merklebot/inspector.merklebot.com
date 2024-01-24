@@ -16,8 +16,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
         ssh \
         libssl-dev \
         pkg-config \
-        python3.8-full \
-        python3.8-dev \
+        python3.8 \
+        python3.8 \
         ffmpeg  \
         libsm6 \
         xvfb \
@@ -25,8 +25,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
         freeglut3-dev \
         libxext6 && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    python3.8 -m ensurepip --upgrade
+    rm -rf /var/lib/apt/lists/*
+
+
 
 WORKDIR /merklebot_inspector
 
